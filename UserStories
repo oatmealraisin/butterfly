@@ -1,0 +1,20 @@
+-- Backend --
+
+I want to be able to see where a post originated.
+I want to be able to tell the difference between cards and notifications
+I want to be able to remove duplicate posts
+
+-- GUI --
+
+As a user, I want to have a desktop notification when certain events happen
+As a user, I want to be able to look at my feeds from the main page.
+As a user, I want to be able to see data about posts I make
+
+-- Plugins --
+
+G+
+Twitter
+Facebook
+Tumblr
+Pinterest
+LinkedIn
