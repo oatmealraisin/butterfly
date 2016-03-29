@@ -1,9 +1,18 @@
+/*
+	TODO: package comment
+*/
+
 package main
 
 import (
 	"fmt"
 	"time"
 )
+
+type Plugin interface {
+	Cards() Card
+	PostCards(Card) bool
+}
 
 type Card struct {
 	Username string
@@ -12,6 +21,21 @@ type Card struct {
 }
 
 func getNewPosts(c chan Card) {
+	time.Sleep(1000 * time.Millisecond)
+
+	c <- Card{Username: "murphy", Message: "Asdf"}
+	time.Sleep(300 * time.Millisecond)
+
+	c <- Card{Username: "murphy", Message: "gjdhg"}
+	time.Sleep(100 * time.Millisecond)
+
+	c <- Card{Username: "murphy", Message: "jjhj"}
+	time.Sleep(3000 * time.Millisecond)
+
+	c <- Card{Username: "murphy", Message: "fdsa"}
+	time.Sleep(1000 * time.Millisecond)
+
+	c <- Card{Username: "murphy", Message: "hjdhgsj"}
 }
 
 func displayPosts(c chan Card) {
