@@ -7,52 +7,30 @@ package main
 import (
 	"fmt"
 	"time"
+
+	"github.com/oatmealraisin/bf"
 )
 
-type Plugin interface {
-	Cards() Card
-	PostCards(Card) bool
-}
-
-type Card struct {
-	Username string
-	id       uint
-	Message  string
-}
-
-func getNewPosts(c chan Card) {
-	time.Sleep(1000 * time.Millisecond)
-
-	c <- Card{Username: "murphy", Message: "Asdf"}
-	time.Sleep(300 * time.Millisecond)
-
-	c <- Card{Username: "murphy", Message: "gjdhg"}
-	time.Sleep(100 * time.Millisecond)
-
-	c <- Card{Username: "murphy", Message: "jjhj"}
-	time.Sleep(3000 * time.Millisecond)
-
-	c <- Card{Username: "murphy", Message: "fdsa"}
-	time.Sleep(1000 * time.Millisecond)
-
-	c <- Card{Username: "murphy", Message: "hjdhgsj"}
-}
-
-func displayPosts(c chan Card) {
+func displayPosts(c chan bf.Card) {
 	for {
 		select {
 		case card := <-c:
 			fmt.Println(card.Username)
 			fmt.Println(card.Message)
 		default:
+			bf.Refresh(p)
 			time.Sleep(10 * time.Millisecond)
 		}
 	}
 }
 
 func main() {
-	c := make(chan Card, 100)
-	go getNewPosts(c)
+	comms := make(chan string, 100)
+	db := Database{MaxSize: 100}
+	go bf.StartServer(db, comms)
+	var p bf.Plugin
+	p = bf.Twitter{}
+	bf.AddModule(p)
+
 	go displayPosts(c)
-	time.Sleep(10000 * time.Millisecond)
 }
