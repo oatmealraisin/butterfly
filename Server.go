@@ -7,7 +7,7 @@ package bf
 
 // Takes a database for putting the cards
 // Returns the error
-func StartServer(db Database, comms chan string) uint {
+func StartServer(db Database, comms chan string) {
 
 }
 
@@ -18,7 +18,7 @@ func AddModule(p Plugin) {
 /*
 
  */
-func getNewPosts(c chan bf.Card, p bf.Plugin) {
+func getNewPosts(c chan Card, p Plugin) {
 	for index, card := range p.Cards {
 		c <- card
 	}

@@ -4,6 +4,10 @@
 
 package bf
 
+import (
+	"time"
+)
+
 type Card struct {
 	Username  string
 	id        uint
