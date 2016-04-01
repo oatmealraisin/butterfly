@@ -19,7 +19,7 @@ func AddModule(p Plugin) {
 
  */
 func getNewPosts(c chan Card, p Plugin) {
-	for index, card := range p.Cards {
+	for _, card := range p.Cards() {
 		c <- card
 	}
 }
