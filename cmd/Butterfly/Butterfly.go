@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/oatmealraisin/bf"
+	"github.com/oatmealraisin/butterfly"
 )
 
 func displayPosts(c chan bf.Card) {
@@ -18,7 +18,6 @@ func displayPosts(c chan bf.Card) {
 			fmt.Println(card.Username)
 			fmt.Println(card.Message)
 		default:
-			bf.Refresh(p)
 			time.Sleep(10 * time.Millisecond)
 		}
 	}
@@ -26,11 +25,14 @@ func displayPosts(c chan bf.Card) {
 
 func main() {
 	comms := make(chan string, 100)
-	db := Database{MaxSize: 100}
+	c := make(chan bf.Card, 100)
+	db := bf.Database{MaxSize: 100}
 	go bf.StartServer(db, comms)
 	var p bf.Plugin
 	p = bf.Twitter{}
 	bf.AddModule(p)
+
+	fmt.Println("Success!")
 
 	go displayPosts(c)
 }
