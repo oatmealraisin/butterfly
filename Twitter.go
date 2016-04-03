@@ -12,7 +12,14 @@ type Twitter struct {
 
 func (plug Twitter) Cards() []Card {
 	var cards []Card
-	cards = append(cards, Card{Username: "Twitter", Message: "interface", TimeStamp: time.Now()})
+
+	card := Card{
+		Username:  "Twitter",
+		Message:   "interface",
+		TimeStamp: time.Now(),
+	}
+	cards = append(cards, card)
+
 	return cards
 }
 

@@ -9,8 +9,9 @@ import (
 )
 
 type Card struct {
-	Username  string
-	id        uint
-	TimeStamp time.Time
-	Message   string
+	Username   string
+	Message    string
+	TimeStamp  time.Time
+	PluginType int
+	id         int
 }
