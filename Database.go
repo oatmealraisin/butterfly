@@ -11,15 +11,15 @@ type Database struct {
 	MaxSize int
 }
 
-func GetFirstN(n int, db Database) []Card {
-	return GetRange(0, n, db)
+func (db Database) GetFirstN(n int) []Card {
+	return db.GetRange(0, n)
 }
 
-func GetRange(start int, end int, db Database) []Card {
+func (db Database) GetRange(start int, end int) []Card {
 	return db.content[start:end]
 }
 
-func putCard(c Card, db Database) bool {
+func (db Database) putCard(c Card) bool {
 	if len(db.content) == db.MaxSize {
 		return false
 	}

@@ -5,34 +5,21 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	"flag"
 
 	"github.com/oatmealraisin/butterfly"
 )
 
-func displayPosts(c chan bf.Card) {
-	for {
-		select {
-		case card := <-c:
-			fmt.Println(card.Username)
-			fmt.Println(card.Message)
-		default:
-			time.Sleep(10 * time.Millisecond)
-		}
-	}
+func main() {
+	// TODO: Initialize XDG_CONFIG_HOME directory, look for plugins, parse config
+
+	// TODO: Move to init function
+	var port = flag.String("p", ":1337",
+		"Specify the port that the server will listen on.")
+
+	bf.StartServer(*port)
 }
 
-func main() {
-	comms := make(chan string, 100)
-	c := make(chan bf.Card, 100)
-	db := bf.Database{MaxSize: 100}
-	go bf.StartServer(db, comms)
-	var p bf.Plugin
-	p = bf.Twitter{}
-	bf.AddModule(p)
+func init() {
 
-	fmt.Println("Success!")
-
-	go displayPosts(c)
 }
