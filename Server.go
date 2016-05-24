@@ -1,8 +1,3 @@
-/* * *
- * Server will handle the outbound and inbound requests, maybe our main driver?
- * Gets a database right now...
- */
-
 package bf
 
 import (
@@ -21,7 +16,7 @@ func StartServer(port string) error {
 	http.HandleFunc("/", helpHandler)
 	http.HandleFunc("/help/", helpHandler)
 	http.HandleFunc("/exit/", exitHandler)
-	http.HandleFunc("/card/", cardHandler)
+	http.HandleFunc("/cards/", cardHandler)
 	log.Fatal(http.ListenAndServe(port, nil))
 
 	// Wrote this to create a custom server, abandoned due to difficulties adding
@@ -38,7 +33,12 @@ func StartServer(port string) error {
 	//server.HandleFunc("/", handler)
 	//log.Fatal(server.ListenAndServe())
 
+	return nil
 }
+
+/**
+Handler Section
+*/
 
 // Default handler for root requests.  Maybe prints a help page?
 // TODO: Print a help page
@@ -51,7 +51,7 @@ func helpHandler(w http.ResponseWriter, r *http.Request) {
 // json of each n card, where n is /card/n if n is NaN, return error
 func cardHandler(w http.ResponseWriter, r *http.Request) {
 
-	if number, err := strconv.Atoi(r.URL.Path[len("/card/"):]); err != nil {
+	if number, err := strconv.Atoi(r.URL.Path[len("/cards/"):]); err != nil {
 		fmt.Fprintf(w, "Please specify, with an int, how many cards you need.")
 		return
 	} else {
